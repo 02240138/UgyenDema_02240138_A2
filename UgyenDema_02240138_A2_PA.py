@@ -1,7 +1,63 @@
 
 
 import random
-from UgyenDema_02240138_ import PokemonOrganizer
+from UgyenDema_02240138_A2_PB import PokemonOrganizer
+
+# Main Application
+
+
+def main():
+    system = GameCollection()
+    
+    while True:
+        print("\n==== Game Hub ====")
+        print("1. Number Guesser")
+        print("2. RPS Challenge")
+        print("3. Trivia Quiz")
+        print("4. Pokemon Manager")
+        print("5. View Scores")
+        print("0. Exit")
+        
+        choice = input("Select game (0-5): ")
+        
+        if choice == '1':
+            game = NumberGuesser()
+            system.scores['number_guesser'] += game.start_game()
+        elif choice == '2':
+            game = RPSChallenge()
+            system.scores['rps_battles'] += game.play_round()
+        elif choice == '3':
+            game = TriviaChallenge()
+            system.scores['quiz_challenge'] += game.start_quiz()
+        elif choice == '4':
+            while True:
+                print("\n==== Pokemon Manager ====")
+                print("1. Add New Pokemon")
+                print("2. View Collection")
+                print("3. Reset Collection")
+                print("4. Return to Main")
+                
+                sub_choice = input("Select option (1-4): ")
+                
+                if sub_choice == '1':
+                    system.pokemon_manager.add_pokemon()
+                    system.scores['pokemon_tracker'] = len(system.pokemon_manager.collected)
+                elif sub_choice == '2':
+                    system.pokemon_manager.show_collection()
+                elif sub_choice == '3':
+                    system.pokemon_manager.reset_collection()
+                    system.scores['pokemon_tracker'] = 0
+                elif sub_choice == '4':
+                    break
+                else:
+                    print("Invalid selection")
+        elif choice == '5':
+            system.show_scores()
+        elif choice == '0':
+            print("Thanks for playing!")
+            break
+        else:
+            print("Invalid selection")
 
 
 # Game Collection System
@@ -94,12 +150,13 @@ class RPSChallenge:
 class TriviaChallenge:
     def __init__(self):
         self.questions = {
-            'Science': [
-                ("What is H2O?", ['Hydrogen', 'Water', 'Oxygen', 'Helium'], 2),
-                ("Earth's nearest planet?", ['Venus', 'Mars', 'Mercury', 'Jupiter'], 1)
+'Programming Methodology': [
+("Which of the following is NOT a characteristic of a good programming methodology?", ['Complexity', 'Modularity', 'Maintainability', 'Scalability'], 0),
+                ("What is the primary purpose of structured programming?", ['Making code shorter', 'Improving code readability', 'Reducing errors', 'Enhancing performance'], 1)
+
             ],
-            'History': [
-                ("WWII ended in?", ['1945', '1939', '1950', '1960'], 1)
+            'Python': [
+("Which data type is mutable in Python?", ['Tuple', 'List', 'String', 'Dictionary'], 2)
             ]
         }
         
@@ -140,61 +197,7 @@ class TriviaChallenge:
         return total
 
 
-# Main Application
 
-
-def main():
-    system = GameCollection()
-    
-    while True:
-        print("\n==== Game Hub ====")
-        print("1. Number Guesser")
-        print("2. RPS Challenge")
-        print("3. Trivia Quiz")
-        print("4. Pokemon Manager")
-        print("5. View Scores")
-        print("0. Exit")
-        
-        choice = input("Select game (0-5): ")
-        
-        if choice == '1':
-            game = NumberGuesser()
-            system.scores['number_guesser'] += game.start_game()
-        elif choice == '2':
-            game = RPSChallenge()
-            system.scores['rps_battles'] += game.play_round()
-        elif choice == '3':
-            game = TriviaChallenge()
-            system.scores['quiz_challenge'] += game.start_quiz()
-        elif choice == '4':
-            while True:
-                print("\n==== Pokemon Manager ====")
-                print("1. Add New Pokemon")
-                print("2. View Collection")
-                print("3. Reset Collection")
-                print("4. Return to Main")
-                
-                sub_choice = input("Select option (1-4): ")
-                
-                if sub_choice == '1':
-                    system.pokemon_manager.add_pokemon()
-                    system.scores['pokemon_tracker'] = len(system.pokemon_manager.collected)
-                elif sub_choice == '2':
-                    system.pokemon_manager.show_collection()
-                elif sub_choice == '3':
-                    system.pokemon_manager.reset_collection()
-                    system.scores['pokemon_tracker'] = 0
-                elif sub_choice == '4':
-                    break
-                else:
-                    print("Invalid selection")
-        elif choice == '5':
-            system.show_scores()
-        elif choice == '0':
-            print("Thanks for playing!")
-            break
-        else:
-            print("Invalid selection")
 
 if __name__ == "__main__":
     main()
